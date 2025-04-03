@@ -13,7 +13,7 @@ Chrome version 38 doesn't support the following features, thus, they were not im
 ### 1. Clone the repository
 
 ```
-git clone https://github.com/your-username/disney-menu.git
+git clone https://github.com/aruknight07/disney-menu.git
 cd disney-menu
 ```
 
