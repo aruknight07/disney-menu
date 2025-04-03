@@ -2,11 +2,38 @@
 
 This project is a front-end application built using [Vite](https://vitejs.dev/) and [Vitest](https://vitest.dev/) for testing. It is designed to display a menu for a Disney-themed application. The project includes development, build, and testing commands, and utilizes Vite for a fast and efficient development workflow. The project will generate a release bundle that will support chrome version 38.
 
+## How to use application
+- follow the project setup instructions
+- Open a web browser and go to `localhost:5173/`
+- In there, interact with the interface by using the Up/Down/Left/Right/Enter/Escape/Space keys from the keyboard.
+
+
 ## Constraints:
 Chrome version 38 doesn't support the following features, thus, they were not implemented in the code:
 - Web Components
 - Intersection Observer API
 - CSS Grid Layout
+
+## Requirements
+### P0 requirements:
+- Consume the Home API and render pre populated data
+- Focused tile must be scaled
+- Support for control remote like navigation
+- Minimum layout
+- Tile interaction
+- Handle UX/Data issues 
+
+### P1 requirements:
+- Dynamically populate refs
+- Transitions
+
+### Future Features:
+- Popup tab focus trap in side bar
+- Video preview
+
+
+## Features in consideration:
+- Handle how watched shows differ from never watched shows
 
 ## Project Setup
 
