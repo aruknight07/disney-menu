@@ -8,8 +8,9 @@
   <body>
     <div id="app">
       <main id="root"></main>
-      <aside class="sidenav">
+      <aside id="modal" class="sidenav" role="dialog" aria-labelledby="modalTitle" aria-hidden="true">
         <div class="container">
+          <button id="closeBtn" class="close-btn button" aria-label="Close this modal">X</button> 
           <div class="info">
             <div class="image-container">
               <img class="lowres" />
@@ -18,10 +19,10 @@
               <img class="highres" />
             </div>
             <div class="description">
-              <h3>Hello world</h3>
+              <h3 id="modalTitle">Hello world</h3>
               <div class="buttons-container">
-                <a class="button play">Play</a>
-                <a class="button trailer">Trailer</a>
+                <button class="button play">Play</button>
+                <button class="button trailer">Trailer</button>
               </div>
             </div>
           </div>
