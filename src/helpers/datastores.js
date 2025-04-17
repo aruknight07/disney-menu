@@ -39,30 +39,5 @@ class DataStore {
       return Array.from(this.data.entries());
     }
 }
-  
 
-class ProgramsDataStore extends DataStore {
-    constructor() {
-        super("Program");
-    }
-}
-
-
-class SeriesDataStore extends DataStore {
-    constructor() {
-        super("Series");
-    }
-}
-
-
-class CollectionsDataStore extends DataStore {
-    constructor() {
-        super("Collections");
-    }
-}
-
-
-// Initialize the stores
-export const programsStore = new ProgramsDataStore();
-export const seriesStore = new SeriesDataStore();
-export const collectionsStore = new CollectionsDataStore();
+export const dataStore = new DataStore();

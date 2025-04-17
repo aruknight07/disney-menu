@@ -31,6 +31,31 @@
         </div>
       </aside>
     </div>
+    <template id="tile-template">
+      <li class="tile image-container" tabindex="-1" data-id="${this.id}" data-type="${this.type}">
+        <a href="#">
+            <img src="${this.src}" alt="${this.alt}" loading="lazy">
+        </a>
+    </li>
+    </template>
+    <template id="set-wrapper-template">
+      <div class="container">
+        <h3></h3>
+        <ul class="slider"></ul>
+      </div>
+    </template>
+    <template id="lazy-tile-template">
+      <li class="tile image-container" tabindex="-1" data-id="${this.id}" data-type="${this.type}">
+        <a class="skeleton" href="#">
+        </a>
+      </li>
+    </template>
+    <template id="lazy-set-wrapper-template">
+      <div class="container">
+        <h3></h3>
+        <ul class="slider"></ul>
+      </div>
+    </template>
     <script type="module" src="/src/main.js"></script>
   </body>
 </html>

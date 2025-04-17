@@ -1,21 +1,31 @@
 import './tile.scss';
 
+const templateId = "tile-template";
 class Tile {
-    constructor({ src = '', alt = '', type = '', id = '' }) {
-        this.src = src;
-        this.alt = alt;
-        this.type = type;
-        this.id = id;
+    constructor({id, alt, src, type}) {
+        const template = document.getElementById(templateId);
+        if (!template) {
+            throw new Error(`Template with ID "${templateId}" not found.`);
+        }
+        this.fragment = template.content.cloneNode(true);
+        this.element = this.fragment.querySelector('.tile');
+
+        this.setImg(src, alt);
+        this.setDataId(id);
     }
 
-    render() {
-        return `
-            <li class="tile image-container" tabindex="-1" data-id="${this.id}" data-type="${this.type}">
-                <a href="#">
-                    <img src="${this.src}" alt="${this.alt}" loading="lazy">
-                </a>
-            </li>
-        `.trim().replace(/\s+/g, ' ');
+    setImg(src, alt) {
+        const img = this.element.querySelector('img');
+        img.src = src;
+        img.alt = alt;
+    }
+
+    setDataId(id) {
+        this.element.dataset.id = id;
+    }
+
+    getElement() {
+        return this.fragment;
     }
 }
 

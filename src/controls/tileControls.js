@@ -1,11 +1,10 @@
-import { updateHighlight } from '../helpers/tileNavigation.js';
+import { updateHighlight } from '../helpers/tileNavigationHelper.js';
 import { getVisibleTileIndexInWindow } from '../helpers/tileNavigationHelper.js';
 import { calculateTranslateX } from '../helpers/scrolling.js';
 import { handleShowInformation } from '../helpers/showInformationActions.js';
-import { getCurrentTileIndex } from '../helpers/tileNavigation.js';
-import { fetchReq } from '../helpers/fetchCalls.js';
-import { saveShowInDataStore } from '../helpers/helpers.js';
-import { getShowInformationByType } from '../helpers/helpers.js';
+import { getCurrentTileIndex } from '../helpers/tileNavigationHelper.js';
+import { fetchReq } from '../services/api.js';
+import { dataStore } from '../helpers/datastores.js';
 import Tile from '../components/tile/Tile.js';
 
 export function handleTileKeyEvents(event) {
@@ -30,7 +29,6 @@ export function handleTileKeyEvents(event) {
     }
 }
 
-
 function handleVerticalNavigation(tile, direction) {
     const currentRow = tile.closest('.set-container');
     const nextRow = direction === 'ArrowDown' ? currentRow.nextElementSibling : currentRow.previousElementSibling;
@@ -42,38 +40,27 @@ function handleVerticalNavigation(tile, direction) {
 }
 
 export async function handleRowData(nextRow, focusTile = false) {
-    const data = await fetchReq(nextRow.dataset.refId);
-    const listSet = getListSetFromData(data);
+    const lazySetWrapper = await fetchReq(nextRow.dataset.refId);
+    const fragment = document.createDocumentFragment();
+    
 
-    const imagesHtml = listSet.map(tile => {
-        saveShowInDataStore(tile, tile.type);
-        return getShowInformationByType(tile, tile.type);
+    lazySetWrapper.items.forEach(tile => {
+        dataStore.set(tile.id, tile);
+        fragment.appendChild((new Tile(tile)).getElement());
     });
-
-    const newShows = imagesHtml.map(tile => new Tile(tile).render()).join('');
-    const parser = new DOMParser();
-    const doc = parser.parseFromString(newShows, 'text/html');
-    const newChildren = Array.from(doc.body.children);
     
     const selectedTilePosition = document.querySelector('.tile.selected');
-    
+    const currentTileIndex = getCurrentTileIndex(selectedTilePosition);
+    nextRow.querySelector('.slider').replaceChildren(fragment);
+
     if(focusTile) {
-        const currentTileIndex = getCurrentTileIndex(selectedTilePosition);
-        newChildren[currentTileIndex].classList.add('selected')
+        nextRow.querySelectorAll('.tile')[currentTileIndex].classList.add('selected')
         const tile = document.querySelector('.tile.selected');
         navigateToNextRow(nextRow, tile);
     }
-    nextRow.querySelector('.slider').replaceChildren(...newChildren);
+    
     delete nextRow.dataset.refId;
 }
-
-function getListSetFromData(data) {
-    if (data.data.CuratedSet) return data.data.CuratedSet.items;
-    if (data.data.TrendingSet) return data.data.TrendingSet.items;
-    if (data.data.PersonalizedCuratedSet) return data.data.PersonalizedCuratedSet.items;
-    return [];
-}
-
 
 function navigateToNextRow(nextRow, tile) {
     const nextRowTiles = nextRow.querySelectorAll('.tile');

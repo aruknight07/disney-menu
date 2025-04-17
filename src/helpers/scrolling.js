@@ -1,4 +1,4 @@
-import { getCurrentTileIndex } from "./tileNavigation";
+import { getCurrentTileIndex } from "./tileNavigationHelper";
 import { handleRowData } from "../controls/tileControls";
 // scrolling.js
 const FLEX_GAP = '0.5';

@@ -15,7 +15,6 @@ export function setHandleBrokenImg() {
     }, true);
 }
 
-
 export function setHighResolutionImageLoadEvent() {
     document.querySelector('.highres').addEventListener('load', (event) => {
         event.target.classList.toggle('hide');
