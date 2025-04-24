@@ -1,6 +1,6 @@
 import { getCurrentTileIndex } from "./tileNavigationHelper";
-import { handleRowData } from "../controls/tileControls";
-// scrolling.js
+import { handleRowData } from "../handlers/tileHandlers";
+
 const FLEX_GAP = '0.5';
 
 /**
@@ -40,8 +40,7 @@ function isElementVisible(el) {
     );
 }
 
-//handle something
-document.addEventListener( 'scrollend', event => {
+export const scrollingHandler = (event) => {
     const rowElements = document.querySelectorAll('[data-ref-id]');
     
     rowElements.forEach((rowElement, index) => {
@@ -49,4 +48,5 @@ document.addEventListener( 'scrollend', event => {
             handleRowData(rowElement, index === 0)
         }
     });
-});
+}
+

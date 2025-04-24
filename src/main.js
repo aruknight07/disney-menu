@@ -1,5 +1,13 @@
-import './sidenav.scss';
 import './style.scss';
-import Home from './views/home';
+import './sidenav.scss';
+import HomeController from './controllers/home.js';
+import HomeView from './components/homeView/homeView.js';
 
-const homeView = new Home();
+document.addEventListener('DOMContentLoaded', () => {
+  // Create view and controller
+  const view = new HomeView('#root');
+  const controller = new HomeController(view);
+
+  // Load data and render the page
+  controller.init();
+});

@@ -1,7 +1,9 @@
+import { dataStore } from "../helpers/datastores";
 class itemModel {
     constructor(item) {
       const parsedItem =  this.getItemInformationByType(item);
       Object.assign(this, { ...parsedItem });
+      dataStore.set(this.id, this);
     }
 
     //search for series/program/collection
@@ -16,25 +18,25 @@ class itemModel {
                 id = item.seriesId;
                 alt = item.text?.title?.full?.series?.default?.content;
                 src = item.image?.tile["1.78"]?.series?.default?.url;
-                heroImgSrc = item.image.hero_collection['1.78']?.series?.default?.url;
+                heroImgSrc = item?.image?.hero_collection['1.78']?.series?.default?.url;
                 ratings = item.ratings[0]?.value;
                 videoArt = item?.videoArt[0]?.mediaMetadata?.urls[0];
-                releaseYear = item.releases[0]?.releaseYear;
+                releaseYear = item?.releases[0]?.releaseYear;
                 break;
             case 'DmcVideo':
                 id = item.programId;
                 alt = item.text?.title?.full?.program?.default?.content;
                 src = item.image?.tile["1.78"]?.program?.default?.url;
-                heroImgSrc = item.image.hero_collection['1.78']?.program?.default?.url;
+                heroImgSrc = item?.image?.hero_collection['1.78']?.program?.default?.url;
                 ratings = item.ratings[0]?.value;
                 videoArt = item?.videoArt[0]?.mediaMetadata?.urls[0];
-                releaseYear = item.releases[0]?.releaseYear;
+                releaseYear = item?.releases[0]?.releaseYear;
                 break;
             case 'StandardCollection':
                 id = item.collectionId;
                 alt = item.text?.title?.full?.collection?.default?.content;
                 src = item.image?.tile["1.78"]?.default?.default?.url;
-                heroImgSrc = item.image.hero_collection['1.78']?.default?.default?.url;
+                heroImgSrc = item?.image?.hero_collection['1.78']?.default?.default?.url;
                 videoArt = item?.videoArt[0]?.mediaMetadata?.urls[0];
                 break;
         }

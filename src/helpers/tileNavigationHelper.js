@@ -1,19 +1,25 @@
 export function getCurrentTileIndex(tile) {
+    if(!tile) return -1;
     return Array.from(tile.parentNode.children).indexOf(tile);
 }
 
 export function updateHighlight(tile, translateX = '') {
+    if(!tile) return;
     const tiles = document.querySelectorAll('.tile');
     tiles.forEach(col => col.classList.remove('selected'));
 
     tile.classList.add('selected');
     
-    // Update the parent container's transform property for horizontal scrolling
-    tile.parentElement.style.transform = translateX;
-    tile.parentElement.setAttribute('current-tile', getCurrentTileIndex(tile));
+    const currentTileIndex = getCurrentTileIndex(tile);
+    if(currentTileIndex >= 0) {
+        // Update the parent container's transform property for horizontal scrolling
+        tile.parentElement.style.transform = translateX;
+        tile.parentElement.setAttribute('current-tile', currentTileIndex);
+        // Focus the tile
+        tile.focus();
+    }
 
-    // Focus the tile
-    tile.focus();
+    
 }
 
 export function getVisibleTileIndexInWindow(tile) {
